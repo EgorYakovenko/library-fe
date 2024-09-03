@@ -3,7 +3,7 @@ import { createBook } from "../../api.js";
 import BorrowedCheckBox from "../BorrowedCheckBox/BorrowedCheckBox.jsx";
 import css from "./CreateBookForm.module.css";
 
-export default function CreateBookForm({ checked, setChecked }) {
+export default function CreateBookForm({ checked, setChecked, bookList }) {
   const [newBook, setNewBook] = useState({
     isbn: "",
     title: "",
@@ -20,10 +20,11 @@ export default function CreateBookForm({ checked, setChecked }) {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     try {
       const res = await createBook(newBook);
       console.log("Book added:", res);
+      // bookList([res]);
     } catch (error) {
       console.error("Error adding book:", error);
     }

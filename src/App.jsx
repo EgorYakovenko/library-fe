@@ -22,7 +22,12 @@ function App() {
 
   return (
     <>
-      <CreateBookForm checked={isChecked} setChecked={setIsChecked} />
+      <CreateBookForm
+        checked={isChecked}
+        setChecked={setIsChecked}
+        bookList={setBooksList}
+      />
+
       <SearchForm />
       <BooksList results={booksList} />
     </>

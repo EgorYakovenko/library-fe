@@ -1,18 +1,5 @@
-// import css from "./SearchForm.module.css";
-
-// export default function SearchForm() {
-//   return (
-//     <div className={css.container}>
-//       <h2> Пошук книги</h2>
-//       <input type="number" placeholder="За кодом" />
-//       <input type="text" placeholder="За назвою" />
-//       <button type="button">Пошук</button>
-//     </div>
-//   );
-// }
-
 import { useState } from "react";
-import { searchBooks } from "../../api.js"; // Убедитесь, что путь корректен
+import { searchBooks } from "../../api.js";
 import css from "./SearchForm.module.css";
 
 export default function SearchForm() {
@@ -30,7 +17,7 @@ export default function SearchForm() {
 
   const handleSearch = async () => {
     try {
-      const query = isbn || title; // Если ISBN пустой, ищем по названию, и наоборот
+      const query = isbn || title;
       const data = await searchBooks(query);
       setResults(data);
     } catch (error) {
@@ -42,18 +29,20 @@ export default function SearchForm() {
     <div className={css.container}>
       <h2> Пошук книги</h2>
       <input
+        className={css.input}
         type="number"
         placeholder="За кодом ISBN"
         value={isbn}
         onChange={handleIsbnChange}
       />
       <input
+        className={css.input}
         type="text"
         placeholder="За назвою"
         value={title}
         onChange={handleTitleChange}
       />
-      <button type="button" onClick={handleSearch}>
+      <button className={css.input} type="button" onClick={handleSearch}>
         Пошук
       </button>
 
@@ -62,8 +51,10 @@ export default function SearchForm() {
         <ul>
           {results.map((book) => (
             <li key={book.id}>
-              (Назва: {book.title}) (Автор: {book.author}) (ISBN: {book.isbn})
-              (Наявність: {book.isBorrowed ? "Позичена" : "В наявности"})
+              <p>Назва: {book.title}</p>
+              <p>Автор: {book.author}</p>
+              <p>Код: {book.isbn}</p>
+              {book.isBorrowed ? <p>В наявности</p> : <p>Позичена</p>}
             </li>
           ))}
         </ul>
